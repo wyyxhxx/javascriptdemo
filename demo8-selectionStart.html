@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="" method="post">
+    <textarea name="text" id="con" cols="30"  rows="10">The text selection appears here</textarea>
+    <input type="submit" onclick="inserttag()" name="sub" value="OK">
+</form>
+</body>
+<script>
+    function inserttag(){
+        var text=document.getElementById('con');
+        text.focus();
+        var start=text.selectionStart;
+        var end = text.selectionEnd;
+        var ss = text.value.substring(start, end);
+        alert(ss);
+        //alert(start);
+    }
+</script>
+</html>

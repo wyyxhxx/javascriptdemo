@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
+    <title>accordion</title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            background-color: #F5F5F5;
+        }
+
+        body>span{
+            display: inline-block;
+            margin: 2% 2%;
+        }
+
+        .contain{
+            background-color: white;
+            padding-bottom: 50px;
+
+        }
+
+        .head{
+            position: relative;
+            border-top: 1px #F5F5F5 solid;
+        }
+
+        .date{
+            margin-left: 2%;
+        }
+
+        .remain{
+            float: right;
+            margin-right: 3%;
+            color: #A1A1A1;
+        }
+
+        .layout{
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+        }
+
+        .list{
+            height: 0px;
+            display: none;
+            overflow: hidden;
+        }
+
+        .item{
+            /*display: none;*/
+            background-color: #FAFAFA;
+            border-bottom: 1px #f3f2f5 solid;
+        }
+
+        .hz{
+            text-align: center;
+            margin-top: 24px;
+            color: #A1A1A1;
+        }
+
+    </style>
+</head>
+<body>
+<span>请选择日期</span>
+<div class="contain">
+
+    <div class="head layout" onclick="console.log('2233')"><span class="date">2020-09-16</span><span class="remain">剩余<span>150</span>&nbsp;&gt;</span></div>
+        <div class="list">
+            <div class="item layout"><span class="date">8:00~9:00</span><span class="remain">剩余15</span></div>
+            <div class="item layout"><span class="date">8:00~9:00</span><span class="remain">剩余15</span></div>
+            <div class="item layout"><span class="date">8:00~9:00</span><span class="remain">剩余15</span></div>
+        </div>
+
+    <div class="hz">hzzfy.com</div>
+</div>
+
+</body>
+<script>
+    var head = document.getElementsByClassName('head')
+    var list = document.getElementsByClassName('list')
+    var item = document.getElementsByClassName('item')
+
+    function unfold(list,Ispeed){//日期栏、时间段、展开或收纳
+        list.style.display = 'block'
+        // let listH = list.children.length*list.children[0].clientHeight
+        let listh = list.children.length*list.children[0]
+        let listH = listh.clientHeight
+        let speed
+
+        let timer = setInterval(function () {
+            let currentListH = list.clientHeight
+
+            if(Ispeed) {
+                speed = Math.ceil(listH/(currentListH + 10))
+                if(currentListH < listH) list.style.height = speed + currentListH + 'px'
+                else clearInterval(timer)
+            }
+            else {
+                speed = -Math.ceil(currentListH/17)
+                if(currentListH > 0) {
+                    list.style.height = speed + currentListH + 'px'
+                    if(speed + currentListH <= 0)
+                        list.style.height = 0 + 'px'
+                }
+                else clearInterval(timer)
+            }
+
+        },3)
+    }
+
+
+for(let i=0;i<head.length;i++)
+{
+    list[i].isShow = true
+    head[i].addEventListener('click',function () {
+        // head[i].style.backgroundColor = 'red'
+        console.log(list[i].clientHeight);
+        console.log(list[i].children.length * item[i].clientHeight);
+        if(list[i].clientHeight == 0 || list[i].clientHeight == list[i].children.length*list[i].children[0].clientHeight)
+        {
+
+            list[i].isShow = !list[i].isShow
+            if(!list[i].isShow){
+                unfold(list[i],1)
+            }
+            else{
+                unfold(list[i],0)
+            }
+        }
+    })
+
+}
+
+
+
+
+</script>
+</html>

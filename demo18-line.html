@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        overflow: hidden;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .c {
+        background: black;
+    }
+</style>
+<body>
+<canvas class='c'></canvas>
+</body>
+<script>
+    var c = document.querySelector('.c') /* canvas element */,
+        w /* canvas width */, h /* canvas height */,
+        ctx = c.getContext('2d') /* canvas context */,
+
+        /* previous & current coordinates */
+        x10 , y10 , x1 , y1 , x20 , y20, x2 , y2 , t = 0 , i ,
+
+        /* just me being lazy */
+        exp = Math.exp, pow = Math.pow, sqrt = Math.sqrt,
+        PI = Math.PI, sin = Math.sin, cos = Math.cos;
+
+
+    var trimUnit = function(input_str, unit) {
+        console.log(parseInt(input_str.split(unit)[0], 10));//将字符串后面的px去掉返回一个int的数值
+        return parseInt(input_str.split(unit)[0], 10);
+    };
+
+    var initCanvas = function() {
+        var s = getComputedStyle(c);//getComputedStyle(element).width
+        console.log(s);
+        w = c.width = trimUnit(s.width, 'px');
+        h = c.height = trimUnit(s.height, 'px');
+    };
+
+    var draw = function (x0,y0,x,y,color){
+        ctx.beginPath();//绘制路径line
+        ctx.moveTo(x0, y0);//从x0，y0开始
+        ctx.lineTo(x, y);//到x，y结束的路径
+        ctx.lineWidth = 2;//线的宽度
+        // ctx.strokeStyle = 'hsl(' + (x/w + t)*180 + ', 100%, 65%)';//hsl定义路径颜色 hsl(色相，饱和度，亮度)
+        ctx.strokeStyle = 'hsl(' + color*(1+x/(w*4)) + ',100%,65%)';//240~300
+        ctx.stroke();//进行绘制
+    }
+
+    var wave = function() {
+        x10 = x20 = -10, y10 = h/2, y20 = h/2 + 10 , i = 1
+
+        ctx.clearRect(0, 0, w, h);//清空一片矩形区域，目的是下一次画线之前清除上一次画的线 不然他们就会全部叠在一起
+        for(x1 = x2 = 0; x1 < w; x1 = x1 + 7 , x2 = x2 + 10 ,i += 0.1) {
+
+            y1 =  3*sqrt(x1)*sin(x1/23/PI + t/3 + sin(x1/29 + t)) +
+                32*sin(t)*cos(x1/19 + t/7) +
+                16*cos(t)*sin(sqrt(x1)) + h/2;
+
+            // y1 = (sin(i)*cos(t))*30 + h/2
+            // y2 = (sin(t)*cos(i))*20 + h/2 +10
+
+            draw(x10,y10,x1,y1,250)
+            // draw(x20,y20,x2,y2,200)
+            // draw(x10,y20,x1,y2,200)
+            //
+            x10 = x1;
+            y10 = y1;
+            // y20 = y2
+            // x20 = x2
+
+
+        }
+
+        t += 0.03;//z = cosx*siny
+        requestAnimationFrame(wave);//更新重绘动画
+    };
+
+
+
+    /* START THE MADNESS */
+    setTimeout(function() {
+        initCanvas();
+        wave();
+
+        /* fix looks on resize */
+        addEventListener('resize', initCanvas, false);//?
+    }, 15);
+</script>
+</html>

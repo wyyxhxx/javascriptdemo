@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var countAndSay = function(n) {
+        if(n==1){
+            return n.toString()
+        }
+        var tempArr = countAndSay(n-1).match(/(\d)\1*/g)  // 该正则进行相同分组，调用match方法得出接下来用的数组
+        console.log(tempArr)
+        var result = ""
+        tempArr.forEach((item)=>{              // 循环上面得到的数组，然后取每个的长度（题里说的几个），还有第一个数字（题里说的哪个数）
+            var lth = item.length.toString()
+            var num = item.substring(0,1)
+            console.log(lth, num);
+            result = result+lth+num
+        })
+        return result   //最后返回结果
+
+    };
+
+    console.log(countAndSay(5))
+
+
+    // var s='3323221'
+    // var i = 0,j=0
+    // var arr = []
+    // while (i<s.length){
+    //     if(s[i]!=s[i+1]){
+    //         arr.push(j+1+s[i])
+    //         j=-1
+    //     }
+    //     i++
+    //     j++
+    // }
+    // console.log(arr);
+    //
+    // function a(num){
+    //     var i = 0,j = 0;
+    //     var s = '11'
+    //     var arr = []
+    //     for(let x = 0;x<num-1;x++){
+    //         while (i<s.length){
+    //             if(s[i]!=s[i+1]){
+    //                 arr.push(j+1+s[i])
+    //                 j=-1
+    //             }
+    //             i++
+    //             j++
+    //         }
+    //         s = arr.join('')
+    //         arr = []
+    //         i = j = 0
+    //     }
+    //     return s
+    // }
+    //
+    // console.log(a(4));
+
+    //    var s = '(){}'
+//    var isValid = function(s) {
+//        var i = 0
+//        if(s.length % 2 != 0) return false
+//        for (let i = 0;i<s.length/2;i++){
+//
+//
+//        }
+//    };
+//
+//    console.log(isValid(s));
+//    var isValid = function (s) {
+//        const cache = []
+//        const map = new Map()
+//        map.set("(", ")")//三种括号的键值对 set（key，value）
+//        map.set("[", "]")
+//        map.set("{", "}")
+//        for (let i = 0; i < s.length; i++) {
+//            if (map.has(s[i])) cache.push(s[i])//s[i]必然是三种括号中的一种 has返回一个Boolean，如果有匹配的值返回true has（key）
+//            else {
+//                if (cache.length === 0) return false//说明s中没有括号
+//                if (map.get(cache[cache.length - 1]) === s[i]) cache.pop()
+//                else return false
+//            }
+//        }
+//        if (cache.length) return false
+//        return true
+//    };
+
+
+    //-1,-1,0,1,1,2 既然是加起来等于0 那必然有0的左边或0的右边
+    // var threeSum = function(nums) {
+    //     let n = nums.length
+    //     nums.sort((a, b) => a - b)
+    //     let res = []
+    //     for (let i = 0; i < n - 2; i++) {
+    //       if(nums[i] === nums[i - 1]) continue
+    //       let left = i + 1
+    //       let right = n - 1
+    //       while (left < right) {
+    //         let sum = nums[i] + nums[left] + nums[right]
+    //         if (sum === 0) {
+    //           res.push([nums[i], nums[left++], nums[right--]])
+    //           while(nums[left] === nums[left - 1]) left++
+    //         } else if (sum < 0) {
+    //           left++
+    //         } else {
+    //           right--
+    //         }
+    //       }
+    //     }
+    //     return res
+    //   };
+
+
+
+
+    // var s = [-2,0,0,1,1]
+    // s = s.sort((a,b)=>a-b)
+    // console.log(s);
+    // var l = 1,r = s.length - 1
+    // var arr = []
+    // var sum = 0
+    // for(let i = 0;i<s.length/2;i++){
+    //     l = i + 1
+    //     r = s.length - 1
+    //     console.log('for循环');
+    //     while (l < r){
+    //         console.log(l, r, i);
+    //         if(s[l] + s[r] + s[i] == 0){
+    //             console.log(l, r, i);
+    //             arr.push([s[r],s[l],s[i]])
+    //             while (s[i]==s[i+1]) {i++
+    //                 console.log('i++');}
+    //             l++
+    //             r--
+    //         }
+    //         else if(s[l] + s[r] + s[i] < 0){
+    //             l++
+    //             if(l == i) l++
+    //         }
+    //         else if(s[l] + s[r] + s[i]> 0){
+    //             r--
+    //             if(l == i) r--
+    //         }
+    //     }
+    // }
+    //
+    // console.log(arr);
+
+
+    // var longestCommonPrefix = function(strs) {
+    //     strs.sort()//按编码排序 如果按字符排序，那么排在第一个字符串之后的字符串从某一位开始 要么和第一相等 要不大于第一个字符串
+    //     console.log(strs)
+    //     if (strs.length === 0) return ''//空数组返回''
+    //     var first = strs[0], end = strs[strs.length - 1]
+    //     console.log(first);
+    //     if(first === end || end.match(eval('/^' + first + '/'))){
+    //         return first//first包含于end返回first
+    //     }
+    //     for(var i=0;i<first.length;i++){
+    //         if(first[i] !== end[i]){
+    //             return first.substring(0,i)//匹配失败时返回相应字符串
+    //         }
+    //     }
+    // };
+    //
+    // console.log(longestCommonPrefix(["",""]))
+
+    // 第14
+    // var a = []
+    // var longestCommonPrefix = function(strs) {
+    //     if(strs) console.log(typeof "","");
+    //     var arr = []
+    //     var is = true
+    //     var i = 0,j = 0
+    //     console.log(strs[0][0])
+    //     while(is){
+    //         while(i < strs.length - 1){
+    //             if(strs[i][j] != strs[i+1][j]){
+    //                 is = false
+    //                 break
+    //             }
+    //             else i++
+    //         }
+    //         console.log(i);
+    //         if(i == strs.length - 1) {
+    //             arr.push(strs[i][j])
+    //         }
+    //         i = 0
+    //         j++
+    //     }
+    //
+    //     return arr.join('')
+    // };
+    //
+    // console.log(longestCommonPrefix(a))
+
+
+
+
+
+
+
+    // var arr = []
+    //
+    // var intToRoman = function(num) {
+    //
+    //     var s = [...String(num)]
+    //     while (s.length){
+    //         if(s.length == 4){
+    //             let i = Math.floor(num/1000%10)
+    //             while (i--) arr.push('M')
+    //             s.shift()
+    //         }
+    //         else if(s.length == 3){
+    //             let j = Math.floor(num/100%10)
+    //             num = num - j*100
+    //             t(j,'C','D','CD','CM')
+    //             s.shift()
+    //         }
+    //         if(s.length == 2){
+    //             let j = Math.floor(num/10%10)
+    //             num = num - j*10
+    //             console.log(j);
+    //             t(j,'X','L','XL','XC')
+    //             s.shift()
+    //
+    //         }
+    //         else if(s.length == 1){
+    //             let j = num%10
+    //             t(j,'I','V','IV','IX')
+    //             s.shift()
+    //         }
+    //     }
+    //
+    //     return arr.join('')
+    //
+    // };
+    //
+    // function t(j,i,v,iv,ix){
+    //     if(j<5){
+    //         if(j==4)arr.push(iv)//4
+    //         else while (j--) arr.push(i)
+    //     }
+    //     else {
+    //         if(j==9) arr.push(ix)//9
+    //         else {
+    //             arr.push(v)
+    //             j-=5
+    //             while (j--) arr.push(i)
+    //         }
+    //     }
+    // }
+    //
+    // console.log(intToRoman(4));
+    // 第十二
+    // var num = 4
+    // var arr = []
+    // var s = [...String(num)]
+    // console.log(s);
+    // while (s.length){
+    //     if(s.length == 4){
+    //         let i = Math.floor(num/1000%10)
+    //         while (i--) arr.push('M')
+    //         s.shift()
+    //     }
+    //     else if(s.length == 3){
+    //         let j = Math.floor(num/100%10)
+    //         num = num - j*100
+    //         t(j,'C','D','CD','CM')
+    //         s.shift()
+    //     }
+    //     if(s.length == 2){
+    //         let j = Math.floor(num/10%10)
+    //         num = num - j*10
+    //         console.log(j);
+    //         t(j,'X','L','XL','XC')
+    //         s.shift()
+    //
+    //     }
+    //     else if(s.length == 1){
+    //         let j = num%10
+    //         t(j,'I','V','IV','IX')
+    //         s.shift()
+    //     }
+    // }
+    //
+    //
+    //
+    // function t(j,i,v,iv,ix){
+    //     console.log('执行t');
+    //     if(j<5){
+    //         if(j==4){
+    //             arr.push(iv)//4
+    //             console.log('分支');
+    //         }
+    //         else while (j--) {
+    //             arr.push(i)
+    //             console.log('分支');
+    //         }
+    //     }
+    //     else {
+    //         if(j==9){
+    //             arr.push(ix)//9
+    //             console.log('分支');
+    //         }
+    //         else {
+    //             arr.push(v)
+    //             j-=5
+    //             while (j--) {
+    //                 console.log('分支');arr.push(i)
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // console.log(arr.join(''));
+
+    // 第九题
+
+    // 第八题
+   //  var s = '   wwwab'
+   //  var i = 0
+   //  var n = 1
+   // var myAtoi = function (str) {
+   //      const number = parseInt(str, 10);
+   //      const Max = Math.pow(2, 31) - 1;
+   //      const Min = Math.pow(-2, 31);
+   //
+   //      // 无法转换的情况返回 0
+   //      if (isNaN(number)) {
+   //          return number;
+   //      }
+   //      // 转换结果超出范围的情况
+   //      if (number < Min || number > Max) {
+   //          return number < 0 ? Min : Max;
+   //      }
+   //      return number;
+   //  };
+   //  console.log(myAtoi(s));
+
+
+    // 第六题
+    // var convert = function(s, numRows) {
+    //     var arr = []
+    //     var n = numRows+(numRows - 2)
+    //     for(let i = 0;i < numRows;i++){
+    //
+    //     }
+    // };
+// var s = 'LEETCODEISHIRING'
+//     var convert = function(s, numRows) {
+//         if( numRows < 2 ) return s
+//         let arr = [], n = numRows + ( numRows - 2 )
+//         for( let i=0; i<s.length; i++){
+//             const r = i % n
+//             const index = r < numRows ? r : n - r
+//             console.log(index,r);      console.log(arr);
+//             arr[index] = arr[index] ? arr[index] + s[i] : s[i]
+//
+//         }
+//         return arr.join('')
+//     }
+//
+//     console.log(convert(s,4))
+
+
+    // 第五题
+    // var s = ''
+    // var i = 0
+    // var sum = 1
+    // var j = 1
+    // var w = 1
+    // var l = 0
+    // var h = 0
+    // var t = 0
+    // var temp = []
+    // while (i < s.length){
+    //     while(s[i-w]&&s[i+w]){
+    //         if(s[i-w] == s[i+w]){
+    //             j += 2
+    //         }
+    //         w++
+    //     }
+    //     l = i
+    //     h = i+1
+    //     while (s[l] && s[h] && s[l]==s[h]){
+    //         t+=2
+    //         l--
+    //         h++
+    //     }
+    //     sum = Math.max(sum,j,t)
+    //     j = 1
+    //     w = 1
+    //     t = 0
+    //     i++
+    // }
+    //
+    // function a(){
+    //
+    // }
+    //
+    //
+    //
+    // console.log(sum)
+
+
+    // 第三题
+    // var c = 'aaaaccc'
+    // var lengthOfLongestSubstring = function(s) {
+    //     var res = 0,
+    //         i = 0;
+    //     var temp = [];
+    //     while(i < s.length) {
+    //         if(temp.indexOf(s[i]) === -1) {
+    //             temp.push(s[i]);
+    //         } else {
+    //             temp.shift();
+    //             console.log(temp);
+    //             continue;
+    //         }
+    //         console.log(temp);
+    //         res = Math.max(res, temp.length);
+    //         i++;
+    //     }
+    //     return res;
+    // };
+    //
+    // console.log(lengthOfLongestSubstring(c));
+    //
+    // var cc = [1]
+    // cc.shift()
+    // console.log(cc);
+
+</script>
+</html>

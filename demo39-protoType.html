@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    window.onload=function(){
+        class Obj{
+            constructor(x,y){
+                this.x=x;
+                this.y=y;
+            }
+
+            [Symbol.iterator](){return this;}
+
+            next(){
+                var value=this.x;
+                if(value<this.y){
+                    console.log(this)
+                    this.x++;
+                    return {value:this.x,done:false}
+                }else{
+                    return {value:undefined,done:true}
+                }
+            }
+        }
+        var obj=new Obj(1,5);
+        for(var i of obj){
+            console.log(i)
+        }
+    }
+    function a(){
+        this.name = 'nico'
+    }
+
+    var b = new a()
+    var c = new a()
+    console.log(Object.getPrototypeOf(b))
+</script>
+</html>

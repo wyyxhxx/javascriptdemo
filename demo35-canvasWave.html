@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>html5 canvas 3D海洋粒子波浪动画特效</title>
+
+    <style>
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+
+<div></div>
+
+<script>
+    /**
+     *3D海洋效应与 Canvas2D
+     * 您可以更改注释 "效果属性" 下的属性
+     */
+
+// Init Context
+    let c = document.createElement('canvas').getContext('2d')//2d上下文
+    let postctx = document.body.appendChild(document.createElement('canvas')).getContext('2d')
+    let canvas = c.canvas
+    let vertices = []
+
+    // Effect Properties
+    let vertexCount = 6000//粒子数量
+    let vertexSize = 3//单位是px？
+    let oceanWidth = 200
+    let oceanHeight = -80
+    let gridSize = 70;//格子距离？
+    let waveSize = 10;//越小越接近圆滑平面
+    let perspective = 60;
+
+    // Common variables 共有属性？
+    let depth = (vertexCount / oceanWidth * gridSize)
+    let frame = 0
+    let { sin, cos, tan, PI } = Math
+
+    // Render loop
+    let loop = () => {//loop函数
+        let rad = sin(frame / 100) * PI / 20
+        let rad2 = sin(frame / 50) * PI / 10//似乎调整着海洋的散射方式以及角度
+        frame++
+        // console.log(frame);//一直在循环
+        if (postctx.canvas.width !== postctx.canvas.offsetWidth || postctx.canvas.height !== postctx.canvas.offsetHeight) {
+            postctx.canvas.width = canvas.width = postctx.canvas.offsetWidth
+            postctx.canvas.height = canvas.height = postctx.canvas.offsetHeight
+        }//调整了画布的大小
+
+        c.fillStyle = `hsl(200deg, 100%, 2%)`//fillstyle 填充颜色，渐变
+        c.fillRect(0, 0, canvas.width, canvas.height)//绘制已经填色的矩形，默认为黑色 应该是背景
+        c.save()//save():保存当前的绘图状态。restore():恢复之前保存的绘图状态。
+        c.translate(canvas.width / 2, canvas.height / 2)//调整（0,0）的位置，相当于调整绘图位置（x，y）
+
+        c.beginPath()//开始画一条路径
+        vertices.forEach((vertex, i) => {//vertices=[]
+            let x = vertex[0] - frame % (gridSize * 2)
+            let z = vertex[2] - frame * 2 % gridSize + (i % 2 === 0 ? gridSize / 2 : 0)//frame * 2 % gridSize: 1~48左右
+            let wave = (cos(frame / 45 + x / 50) - sin(frame / 20 + z / 50))//z = sinx +cosy 大波浪
+            let y = vertex[1] + wave * waveSize
+            let a = Math.max(0, 1 - (Math.sqrt(x ** 2 + z ** 2)) / depth)//粒子大小
+            y -= oceanHeight/1.5
+            tx = x
+            ty = y
+            tz = z
+
+            // Rotation Y
+            tx = x * cos(rad) + z * sin(rad)
+            tz = -x * sin(rad) + z * cos(rad)
+
+            x = tx
+            y = ty
+            z = tz
+
+            // Rotation Z
+            tx = x * cos(rad) - y * sin(rad)
+            ty = x * sin(rad) + y * cos(rad)
+
+            x = tx;
+            y = ty;
+            z = tz;
+
+            // Rotation X
+
+            ty = y * cos(rad2) - z * sin(rad2)
+            tz = y * sin(rad2) + z * cos(rad2)
+
+            x = tx;
+            y = ty;
+            z = tz;
+            x /= z / perspective//  x = x/( z / perspective )
+            y /= z / perspective
+
+
+
+            if (a < 0.01) return
+            if (z < 0) return
+
+
+            // c.globalAlpha = a //调节了粒子的透明度 不断循环的粒子似乎都从粒子海上方回溯了
+            c.fillStyle = `hsl(${200 + wave * 20}deg, 100%, 50%)`
+            c.fillRect(x - a * vertexSize / 2, y - a * vertexSize / 2, a * vertexSize, a * vertexSize)//x,y,粒子大小
+            // c.globalAlpha = 1
+        })
+        c.restore()//！从这里回到了初始状态
+
+        // Post-processing
+        postctx.drawImage(canvas, 0, 0)
+
+        postctx.globalCompositeOperation = "screen"
+        postctx.filter = 'blur(16px)'
+        postctx.drawImage(canvas, 0, 0)
+        postctx.filter = 'blur(0)'
+        postctx.globalCompositeOperation = "source-over"
+        requestAnimationFrame(loop)//动画刷新
+
+    }
+
+    // Generating dots
+    for (let i = 0; i < vertexCount; i++) {//认为所有粒子的初始状态是在y轴方向1/2的垂直线
+        let x = i % oceanWidth//x: 0~200 -offset+x: -100~100
+        let y = 0 //y<=-5||y>=5时 图像翻转
+        let z = i / oceanWidth >> 0//缺少z的话 平面会变得十分平滑
+        let offset = oceanWidth / 2//数组内的x有一半为负数
+        vertices.push([(-offset + x) * gridSize, y * gridSize, z * gridSize])//数组里的数组 一维数组长度为粒子个数 每个二维数组拥有3个子元素
+        //测试： (-offset + x) * 5: -500~500 平面呈现为cosx+siny 并且不占满屏幕(约1200px)
+
+    }
+
+    loop()
+</script>
+
+</body>
+</html>

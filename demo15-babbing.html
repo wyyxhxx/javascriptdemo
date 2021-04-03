@@ -1,0 +1,56 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .a{
+            height: 200px;
+            width: 100px;
+            background: lightpink;
+            margin: 50px;
+        }
+
+        .b{
+            height: 10px;
+            width: 100px;
+            background: #89e9fa;
+            transition: height 2s;
+        }
+
+        .at{
+            height: 100px!important;
+            background: #0e2230!important;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="578" height="200"></canvas>
+<div class="a">
+    <div class="b"></div>
+</div>
+<script>
+    var a = document.getElementsByClassName('a')[0]
+    var b = document.getElementsByClassName('b')[0]
+    a.onmouseover = function (){
+        b.classList.add('at')
+        console.log('over',b);
+    }
+
+    a.onmousemove = function (){
+        b.classList.remove('at')
+    }
+
+
+    var canvas = document.getElementById('myCanvas') ;
+    var context = canvas.getContext('2d');
+
+    context.font = 'italic 40pt Calibri';
+    context.fillText('Hello World!', 150, 100);
+</script>
+</body>
+</html>

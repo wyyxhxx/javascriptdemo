@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS垂直居中</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background: #222;
+        }
+
+        .loading {
+            /*$colors: #7ef9ff, #89cff0, #4682b4, #0f52ba, #000080;*/
+            display: flex;
+        }
+        .dot {
+            position: relative;
+            width: 2em;
+            height: 2em;
+            margin: 0.8em;
+            border-radius: 50%;
+        }
+
+        .dot1:before{
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            width: 2em;
+            height: 2em;
+            animation: wave 2s linear infinite;
+            background-color: #89e9fa ;
+
+        }
+
+
+
+        /*.dot1[data-color='xxx']:before{ 通过这样来选中*/
+        /*    */
+        /*}*/
+
+        @keyframes wave {
+            50%,
+            75% {
+                transform: scale(2.5);
+            }
+
+            80%,
+            100% {
+                opacity: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<!--  data-xxx='yyy' 写在标签中 可以在css中选择某一个data的值单独设置样式  可以写在before里设置content的值  -->
+<div class="loading">
+    <div class="dot" data-color="#000080"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+</body>
+<script>
+    var dot = document.getElementsByClassName('dot')
+    var dot1 = document.getElementsByClassName('dot1')
+    var color = ['#7ef9ff', '#89cff0', '#4682b4', '#0f52ba', '#000080']
+    // document.styleSheets[0].addRule('.dot1:nth-of-type(0):before','background-color:red')
+    // document.styleSheets[0].addRule('.dot1[0]:before','background-color:red')
+    // document.styleSheets[0].addRule('p','background-color:red')
+    for(let i = 0;i < dot.length;i++){
+        dot[i].style.backgroundColor = color[i]
+        setTimeout(function (){
+            dot[i].classList.add('dot1')
+        },i*200)
+    }
+
+</script>
+</html>

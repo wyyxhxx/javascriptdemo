@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body,html{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            overflow: hidden;
+        }
+
+        .box{
+            height: 100px;
+            width: 100px;
+        }
+
+        .moveDiv{
+            height: 10px;
+            width: 10px;
+            position: absolute;
+        }
+
+        .fire{
+            height: 4.5px;
+            width: 4.5px;
+            position: absolute;
+            border-radius: 10px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+<script>
+    const WinHeight = document.documentElement.clientHeight
+
+
+    function RanColor() {
+        return 'rgb('+SelfRandom(0,255)+','+SelfRandom(0,255)+','+SelfRandom(0,255)+')'
+    }
+
+    function SelfRandom(low,height) {
+        if(low < 0 && height){
+            return (Math.random() < 0.5 ? parseInt(Math.random() * low) : parseInt(Math.random() * height))
+        }
+        else{
+            return (parseInt(Math.random() * (height - low) + low))
+        }
+    }
+
+
+    //初始化函数
+    function CreateFile(obj,Sx,Sy,Cname) {
+        obj.className = Cname
+        obj.style.bottom =WinHeight - Sy  + 'px'
+        obj.style.left = Sx + 'px'
+        obj.style.boxShadow = '0 0 10px #e0ea33';
+        obj.style.backgroundColor = RanColor()
+    }
+
+    function Moving(obj,param,Ispeed) {
+
+        obj.timer = setInterval(function () {
+
+            for(let i in param){
+                let speed
+                let comProperty = parseInt(getComputedStyle(obj,'')[i])
+                speed = Ispeed?Math.floor( (param[i] - comProperty) / 10 ):-Math.ceil( (comProperty - param[i] ) / 10 )
+                obj.style[i] = speed + comProperty + 'px'
+                if(!speed){
+                    clearInterval(obj.timer)
+                    obj.end = true
+                    obj.style.display = 'none'
+
+                }
+            }
+        },10)
+
+
+    }
+
+    function StartMove(Sx,Sy) {
+        let addDiv = document.createElement('div')
+        CreateFile(addDiv,Sx,WinHeight,'moveDiv')
+        document.body.appendChild(addDiv)
+        Moving(addDiv,{bottom:WinHeight - Sy},true)
+        let timer = setInterval(function () {
+            if(addDiv.end){
+                Boom(Sx,Sy)
+                clearInterval(timer)
+            }
+
+        })
+
+
+    }
+
+    function Boom(Sx,Sy) {
+        let num = SelfRandom(100, 120)
+        let addChildDiv = []
+        for (let i = 0; i < num; i++) {
+
+            addChildDiv[i] = document.createElement('div')
+            CreateFile(addChildDiv[i],Sx,Sy,'fire')
+            addChildDiv[i].Dx = SelfRandom(-200, 200)
+            addChildDiv[i].Dy = SelfRandom(-200, 200)
+            if(Math.pow( addChildDiv[i].Dx,2 ) + Math.pow(addChildDiv[i].Dy,2) <= 40000){
+                document.body.appendChild(addChildDiv[i])
+                Moving(addChildDiv[i],{left:addChildDiv[i].Dx + Sx,bottom:addChildDiv[i].Dy + WinHeight - Sy})
+            }
+
+        }
+    }
+
+
+
+    document.onclick = function (e) {
+        StartMove(e.clientX,e.clientY)
+
+    }
+
+</script>
+
+
+</html>

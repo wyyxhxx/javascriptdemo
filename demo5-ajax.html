@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var a = new XMLHttpRequest()//创建ajax对象
+
+    a.open('GET','http://rs.welikedian.com/tphouse/public/index.php/web/index/xiaoge',true)//连接服务器
+    a.send()//发送请求
+    console.log(a.readyState);
+    a.onreadystatechange = function () {//接收返回,当服务器和用户通信时执行
+        if(a.readyState == 4)
+        {
+            // console.log('完成'+a.responseText);
+
+
+        }
+    }
+
+</script>
+</html>

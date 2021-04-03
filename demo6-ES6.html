@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .w{
+            height: 300px;
+            width: 300px;
+            border: 2px solid #0e2230;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .t{
+            height: 30px;
+            width: 30px;
+            background: #89e9fa;
+
+            /*vertical-align: middle;*/
+            /*display: inline-block;*/
+        }
+        /*.column:nth-of-type(1) {*/
+        /*    float: left;*/
+        /*    width: 200px;*/
+        /*    height: 300px;*/
+        /*    margin-right: 10px;*/
+        /*    background-color: red;*/
+        /*}*/
+
+        /*.column:nth-of-type(2) {*/
+        /*    overflow: hidden;!*创建bfc *!*/
+        /*    height: 300px;*/
+        /*    background-color: purple;*/
+        /*}*/
+
+        /*.a{*/
+        /*    height: 100px;*/
+        /*    width: 100px;*/
+        /*    display: inline-block;*/
+        /*    background-color: lightpink;*/
+        /*}*/
+
+        /*body{*/
+        /*    font-size: 0;*/
+        /*}*/
+
+    </style>
+</head>
+<body  id="particles">
+
+<!--<a onclick="ccc();" href="http://www.baidu.com">ciacjicojewoc</a>-->
+<!--<div class="column"></div>-->
+<!--<div class="column"></div>-->
+<!--<table border="1">-->
+<!--    <tr id="et">-->
+<!--        <th class="aa">哈哈</th>-->
+<!--        <th>Month</th>-->
+<!--        <th>Savings</th>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--<div class="a"></div><br><div class="a"></div>-->
+<!--<div class="c">-->
+<!--    <a class="list-group-item" data-a="xxx">aaaaaaaaaaa</a>-->
+<!--    <a class="list-group-item" data-a="yyy">bbbbbbbbbbb</a>-->
+<!--</div>-->
+
+<div class="w">
+    我是文字
+    <div class="t"></div>
+</div>
+
+
+
+<!--<input type="button" value="按钮" class="button" data-my='10'>-->
+<!--<input type="button" value="按钮" class="button" onclick="qw()">-->
+<!--<input type="button" value="按钮" class="button">-->
+</body>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="Particleground.js"></script>
+<script>
+
+    asdfg=1
+
+    var xx = 'xx'
+    var yufa = {
+        ['acd'+ xx]:123,
+    }
+
+    console.log(yufa);
+
+    var gen = function* (){
+        yield console.log("a")
+        console.log("b")
+        console.log("111")
+        yield console.log("ab")
+        console.log("aab222")
+    }
+
+    var g = gen()
+    console.log(g.next())
+    console.log(g.next())
+
+    // function Person(){
+    //     this.age = 0;
+    //     console.log(this);   //指向Person ，且age=1
+    // }
+    //
+    //
+    //
+    // var p = new Person();
+
+    // console.log(p);
+    // var a = 1
+    //
+    // if(1){
+    //     let a = 0
+    //     console.log(a);
+    // }
+    // function ccc(){
+    //     console.log('aaaaaaa');
+    //     return true;
+    // }
+    // var c = document.getElementsByClassName('c')[0]
+    // var group = document.getElementsByClassName('list-group-item')
+    // for(let item of group){
+    //     item.addEventListener('click',()=>{
+    //         console.log(item.dataset.a)
+    //     },true)
+    // }
+    // var d = [
+    //     {
+    //         xx:1
+    //     },
+    //     {
+    //         xx:2
+    //     }
+    // ]
+
+//     var group = document.getElementsByClassName('list-group-item')
+//     for(let item of d){
+//         // item.addEventListener('click',()=>{
+//         //     alert(item.dataset.a)
+//         // },true)
+//         var div = document.createElement('div')
+//         div.innerHTML = `<div class="card mb-4 py-3 border-left-info">
+//   <div class="card-body">
+//     <h5>
+//       <a>国内互联网公司为什么加班这么狠？${item.xx}</a>
+//       <a href="" class="tooltip-show" data-toggle="modal" title="收藏">
+//         <span class="fas fa-heart" style="color: #FF0000" onclick="getCollection()"></span>
+//       </a>
+//     </h5>
+//   </div>
+// </div>`
+//         c.appendChild(div)
+//
+//     }
+    // var length = 100
+    //
+    // function foo(){
+    //     console.log(this.length)
+    // }
+    //
+    // var obj = {
+    //     length: 10,
+    //     getLength(cb){
+    //         cb()// 打印啥？
+    //         arguments[0]()// 打印啥？
+    //     }
+    // }
+    //
+    // obj.getLength(foo, length, obj)
+    // console.count()
+    //
+    // console.group('第一层');
+    // console.group('第二层');
+
+    // console.log('error');
+    // console.error('error');
+    // console.warn('error');
+    //
+    // console.groupEnd();
+    // console.groupEnd();
+    // 所以被赋值给某个变量的对象确实有作用域，内部定义函数的this指向该对象
+    // var name =2
+    // var xxx = {
+    //     name:1,
+    //     x:function (){
+    //         console.log(name)//这个输出的是1
+    //     },
+    //     y:function (){
+    //         return function (){
+    //             console.log(this.name)//这个是2
+    //         }
+    //     },
+    //     z:function (){
+    //       return function (){
+    //           x()//这个报错了 因为这个匿名函数指向window，window中不存在局部函数x
+    //       }
+    //     }
+    // }
+    // xxx.x()
+    // xxx.y()()
+    // xxx.z()()
+    //
+    // function yyy(){
+    //     let i = 1
+    //     // return function (){
+    //     //     console.log(this.i)
+    //     // }
+    //     return function cc(){
+    //         console.log(this.i)
+    //     }
+    // }
+    //
+    // let i1 = function (){
+    //     console.log('sssssssss');//这是赋值函数
+    // }
+    //
+    // let i2 = yyy//这也是赋值函数
+    // let i2 = yyy()//这是执行后才赋值
+    // // yyy()()//所以匿名函数
+
+    // {
+    //     console.log(this)
+    // }
+
+    //   function ListNode(val, next) {
+    //       this.val = (val===undefined ? 0 : val)
+    //      this.next = (next===undefined ? null : next)
+    //  }
+    //
+    //
+    // var addTwoNumbers = function() {
+    //     // let num = String(abc(l1) +  abc(l2))
+    //     let num = String(1000000000000000000000000000466)
+    //     console.log(num);
+    //     var list = new ListNode(parseInt(num[num.length-1]),null)
+    //     var p = list
+    //     for(let i=num.length - 2; i > -1;i--){
+    //         p.next = new ListNode(parseInt(num[i]),null)
+    //         p = p.next
+    //     }
+    //     return list
+    // };
+    //
+    // console.log(addTwoNumbers())
+    //
+    // function abc(p){
+    //     let num = 0
+    //     let i = 1
+    //     while(p!=undefined){
+    //         num += p.val*i
+    //         i*=10
+    //         p = p.next
+    //         console.log(num,p);
+    //     }
+    //     return num
+    // }
+
+
+     // function a(){
+     //     console.log('eewfwefw');//直接赋值一个有名字的函数是会直接执行的
+     // }
+     //
+     // let w1 = a()
+     //  let w2 = ()=>{
+     //      console.log('eddddddddddvfvfv');
+     //  }
+
+
+
+
+      //
+    // var addTwoNumbers = function(l1, l2) {
+    //     let num = String(abc(l1) +  abc(l2))
+    //     var list = ListNode(parseInt(num[0]),null)
+    //     for(let i=1; i<num.length;i++){
+    //         list.next = ListNode(parseInt(num[i]),null)
+    //     }
+    //
+    //     return list
+    //
+    //
+    // };
+    //
+    // function abc(p){
+    //     let num = 0
+    //     let i = 1
+    //     while(p.next!=undefined){
+    //         num += p.var*i
+    //         i*=10
+    //         p = p.next
+    //     }
+    //     return num
+    // }
+
+    // location.href='https://www.baidu.com'
+//     document.write("This is \a program");
+// var abcd = document.getElementById('particles')
+    // function acd(){
+    //     let timer
+    //     if(timer) console.log('cdcicjc');
+    //     timer = setTimeout(()=>console.log(timer),1000)
+    // }
+    //
+    // for(let i=0;i<10;i++){
+    //     acd()
+    // }
+// var a=[]
+//     for(var i=0;i<10;i++){
+//       a[i] = function (){//赋值一个匿名函数 函数不会在赋值的时候运行 a[2]()仅仅只是一个函数 完全可以被一个代码块替代掉 所以i仍然是在全局之中找，i不会改变 i一直都只是个变量 在函数中他没有确切的值
+//           console.log('aaa');
+//           return i
+//       }
+//         // console.log(a[i]);
+//     }
+//     console.log(a[2]);
+    // var adedew = new Map()
+    // console.log(adedew);
+    //
+    // setTimeout(function () {
+    //     console.log("set1");
+    //
+    //     new Promise(function (resolve) {
+    //         resolve();
+    //     }).then(function () {
+    //         new Promise(function (resolve) {
+    //             resolve();
+    //         }).then(function () {
+    //             console.log("then4");
+    //         });
+    //         console.log("then2");
+    //     });
+    // });
+    //
+    // new Promise(function (resolve) {
+    //     console.log("pr1");
+    //     resolve();
+    // }).then(function () {
+    //     console.log("then1");
+    // });
+    //
+    // setTimeout(function () {
+    //     console.log("set2");
+    // });
+    //
+    // console.log(2);
+    //
+    // queueMicrotask(() => {
+    //     console.log("queueMicrotask1")
+    // });
+    //
+    // new Promise(function (resolve) {
+    //     resolve();
+    // }).then(function () {
+    //     console.log("then3");
+    // });
+    // for(var i=0;i<5;i++){
+    //     console.log(i)
+    // }
+    // setTimeout(()=>console.log('aaa'))
+    //
+    // function a () {
+    //     for(var i = 0; i < 3; i++)
+    //     {setTimeout( ()=> {console. log (i)})}}
+    //
+    // a()
+
+    // const a = []
+    // a.a = 1
+    // console.log(typeof a,typeof a.a,a);
+
+    // let a = Array.of(1)
+    // let b = Array.from([1,2])
+    // let c = Array(1)
+    //
+    // console.log(a,b,c)
+    //
+    // var ff = Symbol()
+    // var ff1 = Symbol('a')
+    // var ff2 = Symbol('b')
+    // console.log(ff,ff1==ff2);
+    //
+    // var x = 1
+    // var f = (x,y = (x)=>{x=2})=>{
+    //     x = 3
+    //     y(x)
+    //     console.log(x);
+    // }
+    //
+    // f()
+    // console.log(x);
+//     document.querySelector('body')
+//
+//     function qw(a) {
+//         console.log(this);
+//
+//     }
+//     var rt = document.getElementById('et')
+//     for(let item of rt.children)
+//     {
+//         console.log(item);
+//         if(item.className == 'aa')
+//             console.log(item,'qqqqqqqqqqqqqqqq');
+//     }
+//     console.log(rt);
+//     var button = document.getElementsByClassName('button')
+//
+//     //-----------------for循环那会儿-------------------------
+//     // for(let i=0;i<3;i++){
+//     //     button[i].onclick = function (t) {
+//     //         console.log(this)
+//     //         console.log(`lallllllllllll${i}`);
+//     //     }
+//     // }
+//
+//
+//     //--------------------------------------------------------
+//     function scope() {
+//         console.log(this)
+//     }
+//     scope()
+//     {
+//         let a = 12
+//         function aa() {
+//             console.log(a)
+//         }
+//         aa()
+//     }
+//
+//     //------------------------------------------------------------
+//     let json = {
+//         b:200,
+//         fn:function () {
+//             console.log(this)
+//             console.log(this.b);
+//         }
+//     }
+//
+//     json.fn()
+//     //-------------------------------------------------------------
+//     button[0].onclick = e => {
+//         console.log(e.target.getAttribute('data-my'));
+//         console.log(e.target,e.target.dataset);
+//     }
+//
+//     //----------------------高阶函数--------------------------------
+//     let arr1 = [1,2,3,4,5]
+//     let arr2 = arr1.map(item=>item + 2)
+//     console.log(arr2);
+//
+//     let arr3 = arr1.reduce((tmp,item,index)=>{
+//         console.log(tmp,item,index)
+//         return 0
+//     })
+//     console.log(arr3);
+//
+// //-----------------------------------------------------------------
+// var cb = 2
+//     var ooo = {
+//         cb2 : this,
+//         xx:function () {
+//             console.log(this.cb2);
+//         }
+//
+//     }
+//
+//     ooo.xx()
+//
+//     //
+//     //
+//     // var cv = true
+//     // console.log(cv == 2);
+//
+//     const a = 1;
+//     // const b = 2;
+//     // const string=${b}
+//     // //1+2=3
+//     // console.log(string)
+//
+//     function wefwe(is) {
+//     console.log(is)
+//
+//     }
+//
+//     wefwe(`${a}`)
+//     wefwe('${a}')
+// //--------------------------------------------------------------------------------------
+//     tmp = {a:1,b:2}
+//     tmp1=[1,2,3,4,5]
+//     current  = {...tmp,b:3}
+//     console.log(current);
+//     Object.keys(tmp)
+</script>
+</html>

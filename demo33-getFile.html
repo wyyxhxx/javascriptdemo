@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            /*cursor: url(https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/cursor/normal.cur), auto;*/
+            /*cursor: not-allowed;*/
+            pointer-events: none;
+            cursor: none!important;
+        }
+    </style>
+</head>
+<body>
+<!--只有ie才能用-->
+</body>
+<SCRIPT>
+    function initRandom(){
+        return Math.ceil(Math.random()*5)
+    }
+
+    for (let i=0;i<10;i++){
+        console.log(initRandom())
+    }
+    // function getfileinfo(para)
+    // {
+    //     var myfile=new ActiveXObject("scripting.filesystemobject");
+    //     var fi=myfile.GetFile(para);
+    //     alert("文件类型:"+fi.type+"文件大小:"+fi.size/1024/1024+"M"+"最后一次访问时间:"+fi.DateLastAccessed);
+    // }
+    //
+    // getfileinfo('D:\\test.txt')
+</SCRIPT>
+</html>

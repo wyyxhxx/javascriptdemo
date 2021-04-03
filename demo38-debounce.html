@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="background-color: #ffcc3e;height: 2000px;width: 10px"></div>
+</body>
+<script>
+    // function a(){
+    //     let timer
+    //     console.log('aaaa');
+    //     if(timer) clearTimeout(timer)
+    //     timer = setTimeout(b,1000)
+    // }
+    //
+    // function b(){
+    //     let bbb = document.body.scrollTop
+    //     console.log(bbb);
+    // }
+    //
+    // window.addEventListener('scroll',a,true)
+
+
+    var a = 2;
+
+    var obj = {
+        a: 3,
+        foo(){
+        let a = 4
+        return function(){
+            console.log(a);//4
+            console.log( this.a );//2 指向window
+        }
+    }
+    };
+    obj.foo()()
+
+    var bar = obj.foo();
+    bar(); //2
+
+    function a1(){
+        let c = 100
+        function b(){
+            console.log(c);
+            console.log(this)
+        }
+        b()
+        // return function (){
+        //     console.log(c,this);
+        // }
+    }
+
+    (function(){
+        console.log('aaa');
+
+    })()
+
+    a1()//return一个函数跟直接在函数中定义函数是完全不同的两个概念
+
+</script>
+</html>

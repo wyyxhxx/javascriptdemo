@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        .bar{
+            width: 100%;
+            height: 20px;
+            border: 1px skyblue solid;
+            position: fixed;
+            bottom: 0;
+        }
+
+        .bar div{
+            background-color: deepskyblue;
+            height: 20px;
+            width: 0px;
+            position: relative;
+        }
+
+        .placeholder{
+            height: 10000px;
+            width: 5px;
+            background-color: royalblue;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="placeholder"></div>
+<div class="bar">
+    <div class="barItem"></div>
+</div>
+</body>
+
+<script>
+
+    var precentBar = document.querySelector('.barItem')
+    window.onscroll = function () {
+
+        let scrollY = document.body.scrollTop || document.documentElement.scrollTop
+        let scrollH = document.documentElement.scrollHeight
+        let clientH = document.documentElement.clientHeight
+        console.log(document.documentElement.scrollHeight);
+
+        if(clientH + scrollY <= scrollH){
+            precentBar.style.width = parseInt( scrollY/(scrollH-clientH)*100 ) +'%'
+        }
+
+    }
+
+
+      /*弹窗*/
+    var value = confirm('今天不学习 明天捡垃圾')
+    if(!value){
+        window.close()
+    }
+
+
+
+
+</script>
+</html>

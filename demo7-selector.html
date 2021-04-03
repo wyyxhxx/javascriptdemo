@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+    </style>
+
+</head>
+<body>
+<ul>
+    <li><input type="checkbox" checked="checked"><span>健康</span></li>
+    <li><input type="checkbox"><span>好看</span></li>
+    <li><input type="checkbox"><span>有才华</span></li>
+    <li><input type="checkbox"><span>有钱</span></li>
+    <li><input type="checkbox"><span>有时间</span></li>
+    <li><input type="checkbox" id="All"><span>全选☆</span></li>
+
+</ul>
+</body>
+<script>
+
+    var inputList = document.getElementsByTagName('input')
+    var ul = document.querySelector('ul')
+    var All = document.getElementById('All')
+    var IsSelect = false
+
+    function AllSelect(){//全选
+        for(item of inputList) item.checked = true
+        IsSelect = true
+    }
+
+    function UnSelect() {//全不选
+        for(item of inputList) item.checked = false
+        IsSelect = false
+    }
+
+    function SelfSelect(){//一个个勾选的情况
+        for(var i in inputList) if(!inputList[i].checked) break
+        if(i == inputList.length - 1) AllSelect()
+        else All.checked = false
+    }
+
+
+    ul.addEventListener('click',SelfSelect)
+    All.onclick = ()=>IsSelect?UnSelect():AllSelect()
+
+</script>
+</html>

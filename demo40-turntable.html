@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+        body{
+            background-color: antiquewhite;
+        }
+
+        .util{
+            height: 350px;
+            width: 350px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .container{
+            background-color: lightpink;
+            margin: 10% auto 0 auto;
+            overflow: hidden;
+
+        }
+
+
+        .line{
+            height: 350px;
+            width: 1px;
+            background-color: white;
+            position: absolute;
+            transform-origin: 0 100%;
+            top: -50%;
+            left: 50%;
+        }
+
+        .content{
+            position: absolute;
+            width: 100px;
+            text-align: center;
+            transform: translateX(-50%);
+            margin-top: 10px;
+        }
+
+        .contentbox{
+            transform-origin: 0 100%;
+            left: 50%;
+            text-align: center;
+            width: 1px;
+            height: 175px;
+            position: absolute;
+        }
+
+        .box{
+            position: relative;
+
+        }
+
+        .box:after{
+            content: '';
+            position: absolute;
+            border-right: 20px solid transparent;
+            border-left: 20px solid transparent;
+            border-bottom: 60px solid lavender;
+            top: 47%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+        
+        @keyframes looo {
+            0%{
+
+            }
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="container util">
+        <div class="container2 util"></div>
+</div>
+</div>
+
+<div onclick="">(*^▽^*)</div>
+
+</body>
+<script>
+    var container = document.getElementsByClassName('container')[0]
+    var container2 = document.getElementsByClassName('container2')[0]
+    awa = [
+        {
+            name:'猫猫',
+        },
+        {
+            name:'薯条',
+        },
+        {
+            name:'鹦鹉',
+        },
+        {
+            name:'咖啡',
+        },
+        {
+            name:'花露水',
+        },
+        {
+            name:'小布丁',
+        },
+        {
+            name:'哇金色传说',
+        },
+    ]
+
+    for(let i=0;i< awa.length;i++){
+        let content = document.createElement('div')
+        let contentBox = document.createElement('div')
+        let line = document.createElement('div')
+        contentBox.style.transform = `rotate(${360/awa.length*i}deg)`
+        content.innerHTML = awa[i].name
+        line.style.transform = `rotate(${360 / awa.length * i + 360 / awa.length/2 }deg)`
+        contentBox.classList.add('contentbox')
+        line.classList.add('line')
+        content.classList.add('content')
+        contentBox.appendChild(content)
+        container2.appendChild(contentBox)
+        container.appendChild(line)
+    }
+
+    let num = 8
+
+
+</script>
+</html>
