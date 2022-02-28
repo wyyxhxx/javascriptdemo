@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>弹性小球</title>
+</head>
+<body>
+<canvas id="canvas" height="700" width="600" style="border: 1px solid lightseagreen"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('canvas')
+    var ctx = canvas.getContext('2d')
+    var arr = []
+
+    function ball(){
+        this.x = Math.random()*100 +10
+        this.y = Math.random()*100 +10
+        this.r = 10
+        this.color = randomColor()
+        this.moveX = Math.random()*20
+        this.moveY = Math.random()*20
+        arr.push(this)
+    }
+
+
+    ball.prototype.renderBall = function (){//更新渲染一个小球
+        ctx.beginPath()//不可以不加
+        ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
+        ctx.fillStyle = this.color
+        ctx.fill()
+        ctx.closePath()
+    }
+
+    ball.prototype.update = function (){//更新小球的状态
+        this.x += this.moveX
+        this.y += this.moveY
+        if(this.x <= 0 + this.r || this.x >= canvas.width - this.r) this.moveX = -this.moveX
+        if(this.y <= 0 + this.r || this.y >= canvas.height - this.r) this.moveY = -this.moveY
+    }
+
+
+    function randomColor(){//创建一个随机的十六进制颜色
+        var str = '1,2,3,4,5,6,7,8,9,A,B,C,D,E,F'
+        var arr = str.split(',')//分割字符串得到一个数组
+        var color = '#'
+        for(let i=0;i<6;i++){
+            color+=arr[Math.ceil(Math.random()*15)]
+        }
+        return color
+    }
+
+    for(let i = 0;i<20;i++){//创建20个小球
+        new ball().renderBall()
+    }
+
+    //定时器调用函数
+    setInterval(()=>{
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        for(let i of arr){
+            i.update()
+            i.renderBall()
+        }
+    },40)
+
+</script>
+</html>

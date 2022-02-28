@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简易抽奖器</title>
+    <style>
+
+        .contain{
+            display: flex;
+            flex-wrap: wrap;
+            width: 350px;
+            margin: 0 auto;
+        }
+
+        .contain>div{
+            height: 100px;
+            width: 100px;
+            background: lightpink;
+            margin: 5px;
+            border-radius: 10px;
+            line-height: 100px;
+            text-align: center;
+            color: white;
+
+        }
+
+        .ativity{
+            background: #89e9fa!important;
+        }
+
+        .text{
+            color: #89e9fa;
+            font-size: 20px;
+            margin: 10px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="contain">
+    <div class="small">1</div>
+    <div class="small">2</div>
+    <div class="small">3</div>
+    <div class="small">8</div>
+    <div id="tap" onclick="startRoll()">点击抽奖</div>
+    <div class="small">4</div>
+    <div class="small">7</div>
+    <div class="small">6</div>
+    <div class="small">5</div>
+</div>
+<script>
+    var circle = 2 //默认最小圈数
+    var lastTime = 0 //上一次停下来的格子
+    var arr = [0,1,2,4,7,6,5,3]//正确的ativity顺序
+    var i = 0//用于循环
+    var num = 0 //目前走的步数
+    var sum = arr.length*circle //最小步数
+    var ranNum = 0//实际步数
+    var small = document.getElementsByClassName('small')
+
+    function startRoll(){
+        ranNum = selfRandom(sum,sum+10)//随机步数
+        console.log(ranNum);
+        rolling()
+
+    }
+
+    function rolling(){
+        if(i == arr.length && num<ranNum)
+        {
+            small[arr[i-1]].classList.remove('ativity')
+            i = 0
+        }
+        else if(i != 0) small[arr[i-1]].classList.remove('ativity')
+
+        small[arr[i]].classList.add('ativity')
+        num++
+        i++
+
+        if(num<ranNum){
+            setTimeout(()=>rolling(),speed())
+        }
+        else num = 0
+    }
+
+    function speed(){
+        return num/ranNum*250
+    }
+
+    function selfRandom(low,height) {
+        if(low < 0 && height){
+            return (Math.random() < 0.5 ? parseInt(Math.random() * low) : parseInt(Math.random() * height))
+        }
+        else{
+            return (parseInt(Math.random() * (height - low) + low))
+        }
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

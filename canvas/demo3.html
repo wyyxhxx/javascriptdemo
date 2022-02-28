@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>紫色星空</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background-color: #8500ff;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+
+
+
+     let screenHeight = document.documentElement.clientHeight
+     let screenWeight = document.documentElement.clientWidth
+     var canvas = document.getElementById('canvas')
+     var ctx = canvas.getContext('2d')
+     var starArr = []//装星星
+     var starNumber = 3000//星星个数
+     canvas.height = screenHeight
+     canvas.width = screenWeight
+
+
+    let background = ctx.createRadialGradient(screenWeight*0.8,screenHeight*2,200,screenWeight*0.8,screenHeight,1500)
+    background.addColorStop(0, '#f9dff7');
+     background.addColorStop(0.5,'#a656cf')
+     background.addColorStop(0.7,'#3409a0')
+    background.addColorStop(1, '#342360');
+    ctx.fillStyle = background
+    ctx.fillRect(0,0,screenWeight,screenHeight)//这是背景
+
+     ctx.save()
+
+     function star(){//构造函数
+         this.x = Math.random()*screenWeight*1.5//初始位置x，y
+         this.random = Math.random()
+         this.y =  (this.x*this.x)/4000 + screenWeight*this.random -screenHeight
+         this.r = Math.random()
+         // this.r = 10
+         starArr.push(this)
+     }
+
+     star.prototype.renderStar = function (){//渲染一个星星
+         ctx.beginPath()
+         ctx.fillStyle = 'white'
+         ctx.arc(this.x,this.y,this.r,0,Math.PI*2)
+         ctx.fill()
+         ctx.closePath()
+     }
+
+
+     star.prototype.update = function (){
+         this.x --
+         this.y = (this.x*this.x)/4000 + screenWeight*this.random -screenHeight
+         if(this.x<=0){
+             for(let i = 0;i<starArr.length;i++){
+                 if(this == starArr[i]) starArr.splice(i,1)
+             }
+
+             new star().renderStar()
+         }
+     }
+
+     for(let i = 0;i < starNumber;i++){//初始化一堆星星
+         new star().renderStar()
+     }
+
+     // console.log(starArr[1]);
+
+     function mountain(){
+         ctx.moveTo(0,screenHeight)
+         ctx.lineTo(0,screenHeight/1.5)
+         ctx.lineTo(screenWeight*0.2,400)
+         ctx.lineTo(screenWeight*0.4,350)
+         ctx.lineTo(screenWeight*0.5,420)
+         ctx.lineTo(screenWeight*0.7,370)
+         ctx.lineTo(screenWeight*0.9,350)
+         ctx.lineTo(screenWeight,screenHeight*0.9)
+         ctx.lineTo(screenWeight,screenHeight)
+         ctx.stroke()
+         ctx.closePath()
+         ctx.fillStyle = 'black'
+         ctx.fill()
+     }
+
+     function refresh(){
+         ctx.clearRect(0,0,screenWeight,screenHeight)
+         // mountain()
+         for(let i of starArr){
+             i.update()
+             i.renderStar()
+         }
+         requestAnimationFrame(this.refresh)
+     }
+     refresh()
+
+
+    ctx.moveTo(0,screenHeight)
+    ctx.lineTo(0,screenHeight/1.5)
+    ctx.lineTo(screenWeight*0.2,400)
+    ctx.lineTo(screenWeight*0.4,350)
+    ctx.lineTo(screenWeight*0.5,420)
+    ctx.lineTo(screenWeight*0.7,370)
+    ctx.lineTo(screenWeight*0.9,350)
+    ctx.lineTo(screenWeight,screenHeight*0.9)
+    ctx.lineTo(screenWeight,screenHeight)
+    ctx.stroke()
+    ctx.closePath()
+    ctx.fillStyle = 'black'
+    ctx.fill()
+
+
+</script>
+</html>

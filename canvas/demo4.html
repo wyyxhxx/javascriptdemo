@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>刮刮乐</title>
+    <style>
+        .box{
+            height: 50px;
+            width: 250px;
+            color: white;
+            position: relative;
+            background-color: pink;
+            border: 1px lightcoral solid;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        #canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box">(#^v^#)
+    <canvas id="canvas"></canvas>
+</div>
+
+</body>
+<script>
+    let canvas = document.getElementById('canvas')
+    let ctx = canvas.getContext('2d')
+    ctx.fillStyle = 'lightseagreen'
+    ctx.fillRect(0,0,250,50)
+    ctx.globalCompositeOperation = 'destination-out'
+
+    canvas.onmousemove = (e)=>{
+        ctx.beginPath()
+        ctx.arc(e.offsetX,e.offsetY,20,0,Math.PI*2)
+        ctx.fill()
+        ctx.closePath()
+    }
+
+
+</script>
+</html>

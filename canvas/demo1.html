@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标拖尾彩色小球</title>
+</head>
+<body>
+<canvas id="canvas" width="1000" height="700"></canvas>
+</body>
+<script>
+    var canvas = document.getElementById('canvas')
+    var arr = []
+    canvas.addEventListener('mousemove',(e)=>{//这样相当于我每移动一下鼠标
+        let ball = new Ball(e.offsetX,e.offsetY,20)//一个小球实例
+        ball.renderBall()
+        arr.push(ball)
+    })
+
+
+
+    setInterval(()=>{
+        ctx.clearRect(0,0,canvas.width,canvas.height)//统一一下清空画布的时间，否则出大问题
+        for(let ball of arr){
+            ball.updateBall()
+            ball.renderBall()
+        }
+    },50)
+
+    var ctx = canvas.getContext('2d')
+    function Ball(x,y,r){//规定小球的圆心位置,半径和颜色
+        this.x = x
+        this.y = y
+        this.r = r
+        this.moveX = randomDis()
+        this.moveY = randomDis()
+        this.color = randomColor()
+    }
+
+    function randomDis(){//-10~10之间的一个数字
+        return Math.pow(-1,Math.ceil(Math.random()*10)) * Math.random()*10
+    }
+
+    Ball.prototype.remove = function (){
+        for(let i=0;i< arr.length;i++){
+            if(arr[i] == this) arr.splice(i,1)
+        }
+    }
+
+    function randomColor(){//创建一个随机的十六进制颜色
+        var str = '1,2,3,4,5,6,7,8,9,A,B,C,D,E,F'
+        var arr = str.split(',')//分割字符串得到一个数组
+        var color = '#'
+        for(let i=0;i<6;i++){
+            color+=arr[Math.ceil(Math.random()*15)]
+        }
+        return color
+    }
+
+    Ball.prototype.renderBall = function (){//创建一个小球
+        ctx.beginPath()//为了清空上一帧的图案
+        ctx.arc(this.x,this.y,this.r,0,360*Math.PI/180)
+        ctx.fillStyle = this.color// 会影响到已经创建的小球
+        ctx.fill()
+    }
+
+
+    Ball.prototype.updateBall = function (){//改变小球的位置，通过多次render将不同的状态表现出来
+        this.x += this.moveX
+        this.y += this.moveY
+        this.r -= 2
+        if(this.r <= 0) {
+            this.remove()
+        }
+    }
+
+
+
+
+</script>
+</html>

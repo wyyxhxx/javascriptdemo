@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正弦动画</title>
+    <style>
+
+        .anima {
+            background: black;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            overflow: hidden;
+
+        }
+
+        * {
+            overflow: hidden;
+            margin: 0;
+
+        }
+
+    </style>
+</head>
+<body>
+    <canvas class="anima">当前浏览器不支持，请更换浏览器</canvas>
+
+<script>
+    //正弦小动画
+
+    let w = 0
+    let h = 0
+    let ctx = {}
+    let x10 = 0
+    let y10 = 0
+    let x1 = 0
+    let y1 = 0
+    let y20 = 0
+    let y2 = 0
+    let t = 0
+    let i = 1
+
+
+        function initCanvas() {
+            let anima = document.getElementsByClassName('anima')[0] /* canvas element */
+            let animaStyle = getComputedStyle(anima)//getComputedStyle(element).width
+            w = trimUnit(animaStyle.width, 'px')
+            h = trimUnit(animaStyle.height, 'px')
+            ctx = anima.getContext('2d')
+            anima.width = w
+            anima.height = h
+
+        }
+
+        function trimUnit(input_str, unit) {
+            //将字符串后面的px去掉返回一个int的数值
+            return parseInt(input_str.split(unit)[0], 10);
+        }
+
+        function draw(x0,y0,x,y,color){
+            ctx.beginPath();//绘制路径line
+            ctx.moveTo(x0, y0);//从x0，y0开始
+            ctx.lineTo(x, y);//到x，y结束的路径
+            ctx.lineWidth = 1;//线的宽度
+            ctx.strokeStyle = 'hsl(' + color*(1+x/(w*4)) + ',100%,65%)';//hsl定义路径颜色 hsl(色相，饱和度，亮度)
+            ctx.stroke();//进行绘制
+        }
+
+        function wave() {
+            x10 = -10, y10 = h/2, y20 = h/2 + 10 , i = 1
+            ctx.clearRect(0, 0, w, h)//清空一片矩形区域，目的是下一次画线之前清除上一次画的线 不然他们就会全部叠在一起
+            for(x1 = 0; x1 < w; x1 += 7 ,i += 0.1) {
+
+                y1 = (Math.sin(i)*Math.cos(t))*30 + h/2 //在y轴h/2的位置开始
+                y2 = (Math.sin(t)*Math.cos(i))*20 + h/2 + 10
+
+                draw(x10,y10,x1,y1,250)
+                draw(x10,y20,x1,y2,200)
+                // draw(x20,y20,x2,y2,200)
+                x10 = x1;
+                y10 = y1;
+                // y20 = y2
+                // x20 = x2
+
+
+            }
+
+            t += 0.03;//z = cosx*siny
+            requestAnimationFrame(wave)//更新重绘动画
+        }
+
+
+
+        initCanvas()
+        wave()
+        addEventListener('resize', initCanvas, false)
+
+
+</script>
+
+
+</body>
+</html>
